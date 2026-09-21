@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPA - Admin Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;450;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="custdashboard.css">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="tb-brand">
+      <span class="logo-badge"><img src="images/card-logo.jpg" alt="IPA" onerror="this.style.display='none';this.parentNode.textContent='IPA'"></span>
+      <div><div class="n">Ignite Potential Academy</div><div class="s">Admin Dashboard</div></div>
+    </div>
+    <div class="tb-right">
+      <div class="tb-user"><span class="tb-avatar">LC</span><div><div class="tb-name">L. Chivambo</div><div class="tb-role">Administrator</div></div></div>
+      <button class="tb-logout"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> <span>Log out</span></button>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+
+  <div class="page-head">
+    <h1>Registered Students</h1>
+    <p>Filter by grade, open a student to see all their payments, approve or reject each, and deregister if needed.</p>
+  </div>
+
+  <!-- STAT CARDS -->
+  <div class="stats">
+    <div class="stat total"><div class="ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="num" id="stTotal">0</div><div class="lbl">Total registered</div></div>
+    <div class="stat pending"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div><div class="num" id="stPending">0</div><div class="lbl">Pending approval</div></div>
+    <div class="stat approved"><div class="ic"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="num" id="stApproved">0</div><div class="lbl">Approved</div></div>
+    <div class="stat revenue"><div class="ic"><span class="rand-ic">R</span></div><div class="num" id="stRevenue">R0</div><div class="lbl">Approved revenue</div></div>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="tool-group">
+      <label for="gradeSelect">Filter by grade</label>
+      <div class="select-wrap">
+        <select class="grade-select" id="gradeSelect">
+          <option value="all">All grades</option>
+          <option value="8">Grade 8</option>
+          <option value="9">Grade 9</option>
+          <option value="10">Grade 10</option>
+          <option value="11">Grade 11</option>
+          <option value="12">Grade 12</option>
+        </select>
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Search by learner or guardian name...">
+    </div>
+    <div class="result-count"><b id="rcNum">0</b> students</div>
+  </div>
+
+  <!-- TABLE (desktop) -->
+  <div class="table-card" id="tableCard">
+    <table class="tbl">
+      <thead>
+        <tr><th>Learner</th><th>Grade</th><th>Package</th><th>Payment</th><th style="text-align:right">Action</th></tr>
+      </thead>
+      <tbody id="tblBody"></tbody>
+    </table>
+    <div class="empty" id="tblEmpty" style="display:none">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <div class="et">No learners found</div>
+      <div class="es">Try a different grade or search term.</div>
+    </div>
+  </div>
+
+  <!-- CARDS (mobile) -->
+  <div class="cards-list" id="cardsList"></div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="modal-head">
+      <span class="cell-avatar" id="mAvatar"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></span>
+      <div class="mh-info"><h3 id="mName">Name</h3><div class="sub" id="mSub">Grade · Registered</div></div>
+      <button class="modal-close" id="modalClose"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body">
+
+      <div class="m-section">
+        <div class="m-label"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Learner &amp; guardian details</div>
+        <div class="contact-grid" id="mContact"></div>
+      </div>
+
+      <div class="m-section">
+        <div class="m-label"><svg viewBox="0 0 24 24"><path d="M5 3v18l2-1.2L9 21l2-1.2L13 21l2-1.2L17 21l2-1.2V3l-2 1.2L15 3l-2 1.2L11 3 9 4.2 7 3Z"/></svg> Payments</div>
+        <div id="mPayments"></div>
+      </div>
+
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-dereg" id="mDereg" title="Remove this student from the system">Deregister student</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox"><img id="lightboxImg" src="" alt="Proof"></div>
+
+<script src="api.js"></script>
+<script src="custdashboard.js"></script>
+</body>
+</html>

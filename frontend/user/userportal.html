@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ignite Potential Academy - Learner Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;450;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="userportal.css">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="tb-brand">
+      <span class="logo-badge"><img src="images/logo.png" alt="IPA" onerror="this.style.display='none';this.parentNode.textContent='IPA'"></span>
+      <div><div class="n">Ignite Potential Academy</div><div class="s">Learner Portal</div></div>
+    </div>
+    <div class="tb-right">
+      <span class="tb-name">Learner name</span>
+      <button class="tb-edit" id="editToggle"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg> <span>Edit info</span></button>
+      <button class="tb-logout"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> <span>Log out</span></button>
+    </div>
+  </div>
+</header>
+
+<!-- EDIT INFO PANEL -->
+<div class="edit-panel" id="editPanel">
+  <div class="edit-inner">
+    <div class="edit-head">
+      <div>
+        <h2>Edit your details</h2>
+        <p>Update your personal information. Changes are saved to your account.</p>
+      </div>
+      <button class="edit-close" id="editClose" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <form class="edit-form" id="editForm">
+      <div class="ef-grid">
+        <div class="ef-field">
+          <label for="eiName">Name &amp; surname</label>
+          <input type="text" id="eiName" value="Learner Name" required>
+        </div>
+        <div class="ef-field">
+          <label for="eiDob">Date of birth</label>
+          <input type="date" id="eiDob" required>
+        </div>
+        <div class="ef-field">
+          <label for="eiGrade">Grade</label>
+          <div class="ef-select">
+            <select id="eiGrade" required>
+              <option value="8">Grade 8</option>
+              <option value="9">Grade 9</option>
+              <option value="10" selected>Grade 10</option>
+              <option value="11">Grade 11</option>
+              <option value="12">Grade 12</option>
+              <option value="matric-rewrite">Matric Rewrite</option>
+            </select>
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="ef-field">
+          <label for="eiSchool">Name of school</label>
+          <input type="text" id="eiSchool" value="Current School" required>
+        </div>
+        <div class="ef-field">
+          <label for="eiProvince">Province</label>
+          <div class="ef-select">
+            <select id="eiProvince" required>
+              <option value="Eastern Cape">Eastern Cape</option>
+              <option value="Free State">Free State</option>
+              <option value="Gauteng" selected>Gauteng</option>
+              <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+              <option value="Limpopo">Limpopo</option>
+              <option value="Mpumalanga">Mpumalanga</option>
+              <option value="Northern Cape">Northern Cape</option>
+              <option value="North West">North West</option>
+              <option value="Western Cape">Western Cape</option>
+            </select>
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="ef-actions">
+        <button type="button" class="ef-cancel" id="editCancel">Cancel</button>
+        <button type="submit" class="ef-save">Save changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="shell">
+
+  <div class="page-head">
+    <h1 id="pageTitle">Complete your enrolment</h1>
+    <p id="pageSub">Choose a package, upload your proof of payment, and we'll review it shortly.</p>
+  </div>
+
+  <!-- PORTAL TABS -->
+  <div class="portal-tabs">
+    <button type="button" class="ptab active" id="tabEnrol" data-view="enrol">New enrolment</button>
+    <button type="button" class="ptab" id="tabSubs" data-view="subs">My submissions</button>
+  </div>
+
+  <!-- ============ ENROL VIEW (the stepped flow) ============ -->
+  <div id="viewEnrol">
+
+  <!-- STEP PROGRESS -->
+  <div class="steps-bar">
+    <div class="step-node active" id="node1"><span class="step-num" id="num1">1</span><span class="step-label">Select package</span></div>
+    <span class="step-line"></span>
+    <div class="step-node" id="node2"><span class="step-num" id="num2">2</span><span class="step-label">Proof of payment</span></div>
+    <span class="step-line"></span>
+    <div class="step-node" id="node3"><span class="step-num" id="num3">3</span><span class="step-label">Confirmation</span></div>
+  </div>
+
+  <!-- ===== STEP 1: PACKAGE ===== -->
+  <section class="panel active" id="panel1">
+    <div class="card">
+      <div class="card-title">Choose your package</div>
+      <div class="card-sub">Live online sessions each month, scaling with the plan you choose. Select the one that suits you.</div>
+
+      <div class="pkg-grid">
+        <div class="pkg" data-pkg="Group · 1 Subject" data-price="R350 / month" data-max="1">
+          <div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="plan">Group · 1 Subject</div>
+          <div class="price"><span class="r">R</span><span class="n">350</span><span class="per">/mo</span></div>
+          <div class="desc">8 live sessions per month + recorded lessons.</div>
+        </div>
+        <div class="pkg" data-pkg="Group · 2 Subjects" data-price="R650 / month" data-max="2">
+          <div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="plan">Group · 2 Subjects</div>
+          <div class="price"><span class="r">R</span><span class="n">650</span><span class="per">/mo</span></div>
+          <div class="desc">16 live sessions per month + recorded lessons.</div>
+        </div>
+        <div class="pkg" data-pkg="Group · 3 Subjects" data-price="R950 / month" data-max="3">
+          <div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="plan">Group · 3 Subjects</div>
+          <div class="price"><span class="r">R</span><span class="n">950</span><span class="per">/mo</span></div>
+          <div class="desc">24 live sessions per month + recorded lessons.</div>
+        </div>
+        <div class="pkg" data-pkg="Group · 4 Subjects" data-price="R1250 / month" data-max="4">
+          <div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="plan">Group · 4 Subjects</div>
+          <div class="price"><span class="r">R</span><span class="n">1250</span><span class="per">/mo</span></div>
+          <div class="desc">32 live sessions per month + recorded lessons.</div>
+        </div>
+        <div class="pkg pkg-wide" data-pkg="One-on-One Sessions" data-price="R250 / hour" data-rate="250" data-hourly="true" data-max="4">
+          <div class="tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="pw-left">
+            <div class="plan">One-on-One Sessions</div>
+            <div class="desc">Personalised private tutoring, booked by the hour.</div>
+          </div>
+          <div class="price"><span class="r">R</span><span class="n">250</span><span class="per">/hr</span></div>
+        </div>
+      </div>
+
+      <!-- hours selector (only for one-on-one) -->
+      <div class="hours-box" id="hoursBox">
+        <div class="hb-head"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> One-on-one is billed per subject, per hour. Choose up to 4 subjects and set hours for each.</div>
+      </div>
+
+      <!-- subject selector -->
+      <div class="subj-box" id="subjBox">
+        <div class="sb-head">
+          <span><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5Z"/></svg> <span id="subjLabel">Select your subject</span></span>
+          <span class="sb-count" id="subjCount">0 / 1 selected</span>
+        </div>
+        <div class="subj-grid" id="subjGrid">
+          <!-- filled by JS -->
+        </div>
+      </div>
+
+      <div class="bank-note">
+        <div class="bn-head"><svg viewBox="0 0 24 24"><path d="M3 10 12 4l9 6"/><path d="M4 10v9h16v-9"/><path d="M3 21h18"/></svg> Banking details for EFT</div>
+        <div class="bank-row"><span>Account holder</span><b>Mr L Chivambo</b></div>
+        <div class="bank-row"><span>Bank</span><b>ABSA</b></div>
+        <div class="bank-row"><span>Account number</span><b>4124 9754 48</b></div>
+        <div class="bank-row"><span>Registration fee</span><b>R100 (once-off)</b></div>
+        <div class="bank-row"><span>Reference</span><b class="ref-hl">Your Name &amp; Surname + 100REG</b></div>
+      </div>
+    </div>
+
+    <div class="receipt" id="receiptBox">
+      <div class="rc-head">
+        <svg viewBox="0 0 24 24"><path d="M5 3v18l2-1.2L9 21l2-1.2L13 21l2-1.2L17 21l2-1.2V3l-2 1.2L15 3l-2 1.2L11 3 9 4.2 7 3Z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Order summary
+      </div>
+      <div class="rc-lines" id="rcLines"></div>
+      <div class="rc-fee">
+        <span>Registration fee (once-off)</span><b>R100</b>
+      </div>
+      <div class="rc-total">
+        <div class="rc-t-lbl">Total due<span id="rcNote"></span></div>
+        <div class="rc-t-amt" id="totalAmt">—</div>
+      </div>
+      <div class="rc-hint" id="rcHint">Pay by EFT using the banking details above, then upload your proof on the next step.</div>
+    </div>
+
+    <div class="step-actions">
+      <span class="spacer"></span>
+      <button type="button" class="btn btn-primary" id="toStep2" disabled>Continue <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+    </div>
+  </section>
+
+  <!-- ===== STEP 2: UPLOAD ===== -->
+  <section class="panel" id="panel2">
+    <div class="card">
+      <div class="card-title">Upload proof of payment</div>
+      <div class="card-sub">Attach a screenshot or PDF of your EFT / deposit confirmation.</div>
+
+      <label class="drop" id="drop">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <div class="dt">Click to upload, or drag &amp; drop</div>
+        <div class="ds">PNG, JPG or PDF · up to 5MB</div>
+        <input type="file" id="fileInput" accept="image/*,application/pdf">
+      </label>
+
+      <div class="file-preview" id="filePreview">
+        <div class="fp-icon" id="fpIcon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div class="fp-info"><div class="fn" id="fpName">file.png</div><div class="fs" id="fpSize">—</div></div>
+        <button class="fp-remove" id="fpRemove"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+    </div>
+
+    <div class="step-actions">
+      <button class="btn btn-ghost" id="backTo1"><svg viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg> Back</button>
+      <span class="spacer"></span>
+      <button type="button" class="btn btn-primary" id="toStep3" disabled>Submit for approval <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></button>
+    </div>
+  </section>
+
+  <!-- ===== STEP 3: STATUS ===== -->
+  <section class="panel" id="panel3">
+    <div class="card">
+      <div class="status-wrap">
+        <div class="status-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div>
+        <h2>Submitted successfully</h2>
+        <p>Your enrolment is now pending review by the academy.</p>
+        <div class="pill pending"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg> Pending approval</div>
+
+        <div class="summary">
+          <h4>Submission summary</h4>
+          <div class="sum-row"><span class="k">Package</span><span class="v" id="sumPkg">—</span></div>
+          <div class="sum-row"><span class="k">Subject(s)</span><span class="v" id="sumSubjects">—</span></div>
+          <div class="sum-row"><span class="k">Amount</span><span class="v" id="sumPrice">—</span></div>
+          <div class="sum-row"><span class="k">Proof of payment</span><span class="v ok"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Uploaded</span></div>
+          <div class="sum-row"><span class="k">Status</span><span class="v" style="color:var(--amber)">Awaiting admin</span></div>
+        </div>
+
+        <div class="wa-note">
+          <div class="wi"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.3A9 9 0 1 0 12 3Z"/></svg></div>
+          <p>Once the admin <b>approves your payment</b>, you'll be added to the IPA <b>WhatsApp group</b> where classes and updates are shared.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-actions">
+      <button type="button" class="btn btn-primary" id="backTo2">Go to My submissions <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+      <span class="spacer"></span>
+    </div>
+  </section>
+
+  </div><!-- /viewEnrol -->
+
+  <!-- ============ MY SUBMISSIONS VIEW ============ -->
+  <div id="viewSubs" style="display:none">
+    <div class="subs-wrap" id="subsList">
+      <div class="subs-empty" id="subsEmpty" style="display:none">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <div class="se-t">No submissions yet</div>
+        <div class="se-s">Your enrolments will appear here once you submit one.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== PRINTABLE RECEIPT (hidden until print) ===== -->
+<div id="receiptPrint" class="receipt-print" aria-hidden="true"></div>
+
+<script src="api.js"></script>
+<script src="userportal.js"></script>
+</body>
+</html>

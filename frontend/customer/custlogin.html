@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ignite Potential Academy - Admin Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;450;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="custlogin.css">
+</head>
+<body>
+
+<a href="../user/infopage.html" class="back-home">
+  <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Back to site
+</a>
+
+<main class="auth-wrap">
+
+  <div class="auth-card">
+
+    <!-- Logo on top, centered -->
+    <div class="auth-logo">
+      <span class="logo-badge"><img src="images/card-logo.jpg" alt="IPA logo" onerror="this.style.display='none';this.parentNode.textContent='IPA'"></span>
+      <div class="auth-brand">Ignite Potential Academy</div>
+      <div class="auth-slogan">Admin Portal</div>
+    </div>
+
+    <!-- info panel -->
+    <div class="info-panel">
+      <h2>Administrator login</h2>
+      <p>Sign in with your admin credentials to manage registrations and approvals.</p>
+    </div>
+
+    <form class="auth-form" id="loginForm" novalidate>
+      <div class="field">
+        <label for="loginEmail">Email address</label>
+        <div class="input-wrap">
+          <svg class="fi" viewBox="0 0 24 24"><path d="M3 6h18v12H3Z"/><path d="m3 7 9 6 9-6"/></svg>
+          <input type="email" id="loginEmail" name="email" placeholder="admin@example.com" autocomplete="email" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="loginPassword">Password</label>
+        <div class="input-wrap">
+          <svg class="fi" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          <input type="password" id="loginPassword" name="password" placeholder="Your password" autocomplete="current-password" required>
+          <button type="button" class="toggle-pw" aria-label="Show password" data-target="loginPassword">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <label class="check"><input type="checkbox" id="remember"><span>Remember me</span></label>
+        <a href="#" class="text-link">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn-submit">
+        <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
+        Log in
+      </button>
+
+      <p class="switch-line">Admin accounts are created by the system administrator.</p>
+    </form>
+
+  </div>
+
+  <p class="auth-foot">© 2026 Ignite Potential Academy · <a href="../user/infopage.html">Back to home</a></p>
+</main>
+
+<script src="api.js"></script>
+<script src="custlogin.js"></script>
+</body>
+</html>

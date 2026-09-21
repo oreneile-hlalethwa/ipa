@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ignite Potential Academy - Ignite Brilliance, Inspire Futures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;450;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="infopage.css">
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="#home" class="brand">
+        <span class="logo-badge"><img src="images/logo.png" alt="IPA logo" onerror="this.style.display='none';this.parentNode.textContent='IPA'"></span>
+        <span><span class="bt">Ignite Potential Academy</span><span class="bs">Ignite Brilliance, Inspire Futures</span></span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#subjects">Subjects</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#enrol">Enrol</a>
+        <a href="#contact">Contact</a>
+        <a href="loginregistration.html#login" class="login">Log in</a>
+        <a href="loginregistration.html#register" class="btn btn-signup"><svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg> Register</a>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero-dark" id="home">
+  <div class="wrap">
+    <div class="hd-head reveal">
+      <span class="eyebrow">Ignite Brilliance, Inspire Futures</span>
+      <h1>Welcome to <em>IPA</em></h1>
+      <p>Online tutoring for Grade 8-12 · Explore the academy below</p>
+    </div>
+
+    <div class="carousel reveal d1">
+      <div class="car-arrow" id="carPrev" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></div>
+
+      <div class="car-viewport" id="carViewport">
+        <!-- Card 1: Logo -->
+        <article class="car-card" data-explore="#about">
+          <div class="cimg logo-cell">
+            <img class="cimg-img" src="images/card-logo.jpg" alt="IPA" onerror="this.remove()">
+            <svg viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>
+            Logo - IPA badge
+          </div>
+          <div class="veil"></div>
+          <div class="cbody">
+            <div class="cloc"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg> Online · South Africa</div>
+            <h3>Ignite Potential Academy</h3>
+            <div class="crow"><a class="expl" href="#about">Explore <svg viewBox="0 0 24 24"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg></a></div>
+          </div>
+        </article>
+
+        <!-- Card 2: Founder -->
+        <article class="car-card" data-explore="#about">
+          <div class="cimg">
+            <img class="cimg-img" src="images/founder.jpg" alt="Laurence Chivambo" onerror="this.remove()">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            Photo - Laurence Chivambo
+          </div>
+          <div class="veil"></div>
+          <div class="cbody">
+            <div class="cloc"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg> SMU · Founder</div>
+            <h3>Laurence Chivambo</h3>
+            <div class="crow"><a class="expl" href="#about">Explore <svg viewBox="0 0 24 24"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg></a></div>
+          </div>
+        </article>
+
+        <!-- Card 3: Sessions -->
+        <article class="car-card" data-explore="#pricing">
+          <div class="cimg">
+            <img class="cimg-img" src="images/group-session.jpg" alt="Live sessions" onerror="this.remove()">
+            <svg viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>
+            Photo - live session
+          </div>
+          <div class="veil"></div>
+          <div class="cbody">
+            <div class="cloc"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg> Live · Online</div>
+            <h3>Group &amp; One-on-One</h3>
+            <div class="crow"><a class="expl" href="#pricing">Explore <svg viewBox="0 0 24 24"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg></a></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="car-arrow" id="carNext" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></div>
+    </div>
+
+    <div class="car-dots" id="carDots"></div>
+
+    <a href="#about" class="hd-scroll">
+      <svg class="chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+      Scroll to explore
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid reveal">
+      <div class="placeholder about-photo">
+        <img class="ph-img" src="images/founder.jpg" alt="Laurence Chivambo" onerror="this.remove()">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        Founder portrait - Laurence Chivambo
+      </div>
+      <div class="about-body">
+        <span class="eyebrow" style="display:block;margin-bottom:18px">About the Academy</span>
+        <h2>A tutoring programme built on <em>care</em> and results.</h2>
+        <p>Ignite Potential Academy is an online tutoring programme founded by Laurence Chivambo, a medical student at Sefako Makgatho Health Sciences University. We provide affordable, high-quality academic support designed to help students unlock their full potential.</p>
+        <div class="mv">
+          <div class="mv-item">
+            <span class="num">i.</span>
+            <div>
+              <h4>Our Mission</h4>
+              <p>To deliver accessible, high-quality online education and mentorship that empowers students to achieve academic success and personal growth.</p>
+            </div>
+          </div>
+          <div class="mv-item">
+            <span class="num">ii.</span>
+            <div>
+              <h4>Our Vision</h4>
+              <p>To be a leading academy that inspires learners to unlock their full potential and confidently pursue future opportunities.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<section id="subjects">
+  <div class="wrap">
+    <div class="subj-head reveal">
+      <div>
+        <span class="eyebrow">What We Teach</span>
+        <h2>Subjects <em>offered</em></h2>
+      </div>
+      <span class="grade">Aligned to CAPS &amp; IEB · Grade 8-12<span class="grade-sub">IEB offered via one-on-one sessions only</span></span>
+    </div>
+    <div class="subj-grid reveal d1">
+      <div class="subj-card"><span class="rico"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span><h4>Mathematics</h4><span class="lvl">Grade 8-12</span></div>
+      <div class="subj-card"><span class="rico"><svg viewBox="0 0 24 24"><path d="M4 19h16"/><path d="M6 19V9l4-3 4 3v10"/><path d="M14 19v-5l4-2v7"/></svg></span><h4>Mathematical Literacy</h4><span class="lvl">Grade 10-12</span></div>
+      <div class="subj-card"><span class="rico"><svg viewBox="0 0 24 24"><path d="M9 3v6l-4.3 7.6A2.4 2.4 0 0 0 6.8 20h10.4a2.4 2.4 0 0 0 2.1-3.4L15 9V3"/><path d="M8 3h8"/></svg></span><h4>Physical Sciences</h4><span class="lvl">Grade 10-12</span></div>
+      <div class="subj-card"><span class="rico"><svg viewBox="0 0 24 24"><path d="M7 3c4 3 6 5 6 9a5 5 0 0 1-10 0c0-2 1-3 2-4"/><path d="M17 21c-4-3-6-5-6-9"/></svg></span><h4>Life Sciences</h4><span class="lvl">Grade 10-12</span></div>
+      <div class="subj-card"><span class="rico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18Z"/></svg></span><h4>Geography</h4><span class="lvl">Grade 10-12</span></div>
+      <div class="subj-card"><span class="rico"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4Z"/><path d="M4 9h16"/><path d="M9 9v10"/><path d="M13 13h4M13 16h4"/></svg></span><h4>Accounting</h4><span class="lvl">Grade 10-12</span></div>
+      <div class="subj-card"><span class="rico"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H12v16H6.5A2.5 2.5 0 0 0 4 21.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H12v16h5.5a2.5 2.5 0 0 1 2.5 2.5Z"/></svg></span><h4>English</h4><span class="lvl">Grade 8-12</span></div>
+      <div class="subj-card"><span class="rico"><svg viewBox="0 0 24 24"><path d="M4 6h10"/><path d="M9 4c0 5-2.5 9-6 11"/><path d="M6 9c1.5 3 4 5 7 6"/><path d="M13 20l4-9 4 9"/><path d="M14.5 17h5"/></svg></span><h4>Afrikaans (FAL)</h4><span class="lvl">Grade 8-12</span></div>
+      <div class="subj-card"><span class="rico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="10" ry="4.2"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)"/></svg></span><h4>Natural Sciences</h4><span class="lvl">Grade 8-9</span></div>
+      <a href="loginregistration.html#register" class="subj-card subj-card-rewrite"><span class="rico"><svg viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/><path d="M22 10v6"/></svg></span><h4>Matric Rewrite</h4><span class="lvl">Improve your results</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY / FEATURE ROWS -->
+<section id="why">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">Why Choose IPA</span>
+      <h2>Support that actually <em>fits</em></h2>
+      <p>Flexible, personal and affordable - designed around how learners really study.</p>
+    </div>
+
+    <div class="feat reveal">
+      <div class="feat-media">
+        <div class="placeholder feat-photo">
+          <img class="ph-img" src="images/group-session.jpg" alt="Group session" onerror="this.remove()">
+          <svg viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>
+          Photo - group session
+        </div>
+      </div>
+      <div class="feat-body">
+        <span class="eyebrow">Group Sessions · Live Online</span>
+        <h3>Live <em>group sessions</em></h3>
+        <p>Structured live sessions each month, led by expert tutors and built to keep learners on pace with the curriculum. The number of sessions scales with your plan.</p>
+        <p>Choose one to four subjects and learn alongside peers working towards the same goals, with unlimited access to recorded video lessons.</p>
+        <div class="feat-meta">
+          <div class="m"><div class="k">Format</div><div class="val">Live online</div></div>
+          <div class="m"><div class="k">Sessions</div><div class="val">8 to 32 / month</div></div>
+          <div class="m"><div class="k">From</div><div class="val">R350 / month</div></div>
+        </div>
+        <a href="#pricing" class="btn-directions">
+          <span class="bi"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+          <span><span class="bt2">See group plans</span><span class="bs2">1 to 4 subjects</span></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="feat flip reveal">
+      <div class="feat-media">
+        <div class="placeholder feat-photo">
+          <img class="ph-img" src="images/one-on-one.jpg" alt="One-on-one tutoring" onerror="this.remove()">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+          Photo - one-on-one tutoring
+        </div>
+      </div>
+      <div class="feat-body">
+        <span class="eyebrow">One-on-One · Personalised</span>
+        <h3>Focused <em>private tutoring</em></h3>
+        <p>Individual sessions built entirely around one learner - their pace, their gaps, their goals. Ideal for exam preparation or catching up on tricky topics.</p>
+        <p>Book by the hour, at a time that suits the learner's schedule.</p>
+        <div class="ieb-note">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span><b>IEB learners:</b> the IEB curriculum is offered through one-on-one sessions only.</span>
+        </div>
+        <div class="feat-meta">
+          <div class="m"><div class="k">Format</div><div class="val">1-on-1 online</div></div>
+          <div class="m"><div class="k">Rate</div><div class="val">R250 / hour</div></div>
+          <div class="m"><div class="k">Booking</div><div class="val">Flexible</div></div>
+        </div>
+        <a href="#pricing" class="btn-directions">
+          <span class="bi"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+          <span><span class="bt2">See hourly rate</span><span class="bs2">Book a private session</span></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="join-steps reveal">
+      <div class="js-head center">
+        <span class="eyebrow">Getting Started</span>
+        <h3>How to <em>join our classes</em></h3>
+      </div>
+      <div class="js-track">
+        <div class="js-step">
+          <div class="js-circle">1<span class="js-connector"></span></div>
+          <div class="js-body">
+            <h4>Register</h4>
+            <p>Create an account and pay a once-off, non-refundable registration fee of R100.</p>
+          </div>
+        </div>
+        <div class="js-step">
+          <div class="js-circle">2<span class="js-connector"></span></div>
+          <div class="js-body">
+            <h4>Choose &amp; submit proof</h4>
+            <p>Pick a package with your subjects, then upload your proof of payment on the portal.</p>
+          </div>
+        </div>
+        <div class="js-step">
+          <div class="js-circle js-circle-last">3
+            <svg class="js-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="js-body">
+            <h4>Get added to the group</h4>
+            <p>Once your payment is approved, you're added to our WhatsApp learning community.</p>
+          </div>
+        </div>
+      </div>
+      <a href="loginregistration.html#register" class="btn btn-primary btn-lg js-start"><svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg> Register</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">Pricing</span>
+      <h2>Simple, transparent <em>plans</em></h2>
+      <p>Live online sessions each month, scaling with the plan you choose. Find the one that works for you.</p>
+    </div>
+    <div class="price-grid reveal">
+      <div class="price-col">
+        <div class="price-photo"><img class="ph-img" src="images/price-1subject.jpg" alt="Plan photo" onerror="this.remove()"><svg viewBox="0 0 24 24"><path d="M3 9a2 2 0 0 1 2-2h1l1-2h6l1 2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><circle cx="12" cy="13" r="3.2"/></svg>Photo</div>
+        <div class="pc-body">
+          <span class="plan">Group · 1 Subject</span>
+          <div class="amt"><span class="r">R</span><span class="n">350</span></div>
+          <span class="per">per month</span>
+          <ul class="feat-list"><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>8 online tutoring lessons every month</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>4 live lessons and 4 facilitated lessons</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Unlimited access to recorded video lessons</span></li></ul>
+        </div>
+      </div>
+      <div class="price-col">
+        <div class="price-photo"><img class="ph-img" src="images/price-2subjects.jpg" alt="Plan photo" onerror="this.remove()"><svg viewBox="0 0 24 24"><path d="M3 9a2 2 0 0 1 2-2h1l1-2h6l1 2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><circle cx="12" cy="13" r="3.2"/></svg>Photo</div>
+        <div class="pc-body">
+          <span class="plan">Group · 2 Subjects</span>
+          <div class="amt"><span class="r">R</span><span class="n">650</span></div>
+          <span class="per">per month</span>
+          <ul class="feat-list"><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>16 online tutoring lessons every month</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>8 live lessons and 8 facilitated lessons</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Unlimited access to recorded video lessons</span></li></ul>
+        </div>
+      </div>
+      <div class="price-col">
+        <div class="price-photo"><img class="ph-img" src="images/price-3subjects.jpg" alt="Plan photo" onerror="this.remove()"><svg viewBox="0 0 24 24"><path d="M3 9a2 2 0 0 1 2-2h1l1-2h6l1 2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><circle cx="12" cy="13" r="3.2"/></svg>Photo</div>
+        <div class="pc-body">
+          <span class="plan">Group · 3 Subjects</span>
+          <div class="amt"><span class="r">R</span><span class="n">950</span></div>
+          <span class="per">per month</span>
+          <ul class="feat-list"><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>24 online tutoring lessons every month</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>12 live lessons and 12 facilitated lessons</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Unlimited access to recorded video lessons</span></li></ul>
+        </div>
+      </div>
+      <div class="price-col">
+        <div class="price-photo"><img class="ph-img" src="images/price-4subjects.jpg" alt="Plan photo" onerror="this.remove()"><svg viewBox="0 0 24 24"><path d="M3 9a2 2 0 0 1 2-2h1l1-2h6l1 2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><circle cx="12" cy="13" r="3.2"/></svg>Photo</div>
+        <div class="pc-body">
+          <span class="plan">Group · 4 Subjects</span>
+          <div class="amt"><span class="r">R</span><span class="n">1250</span></div>
+          <span class="per">per month</span>
+          <ul class="feat-list"><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>32 online tutoring lessons every month</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>16 live lessons and 16 facilitated lessons</span></li><li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Unlimited access to recorded video lessons</span></li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="oneonone reveal d1">
+      <div>
+        <h3>One-on-one sessions</h3>
+        <p>Personalised, focused tutoring at a time that suits the learner.</p>
+      </div>
+      <div class="amt"><span class="r">R</span>250 <small>/ hour</small></div>
+    </div>
+    <p class="price-foot">Once-off registration fee of <b>R100</b> · Available for CAPS &amp; IEB curricula</p>
+  </div>
+</section>
+
+<!-- ENROL / PAYMENT -->
+<section id="enrol">
+  <div class="wrap">
+    <div class="enrol-grid reveal">
+      <div class="enrol-left">
+        <span class="eyebrow" style="display:block;margin-bottom:18px">Enrolment</span>
+        <h2>Ready to <em>enrol</em>?</h2>
+        <p>Create your account, choose your package, then pay by EFT and upload your proof of payment on the portal. Use the banking details on the right and the correct reference so we can confirm your enrolment quickly.</p>
+        <a href="loginregistration.html#register" class="btn btn-primary btn-lg btn-ic btn-ic-static" style="margin-top:34px"><svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg> Register</a>
+      </div>
+      <div class="bank">
+        <h3>Banking details</h3>
+        <p class="sub">Pay by EFT and use the correct reference so we can confirm your enrolment.</p>
+        <div class="bank-row"><span>Account holder</span><b>Mr L Chivambo</b></div>
+        <div class="bank-row"><span>Bank</span><b>ABSA</b></div>
+        <div class="bank-row"><span>Account number</span><b>4124 9754 48</b></div>
+        <div class="bank-row"><span>Registration fee</span><b>R100</b></div>
+        <div class="ref">
+          <div class="l">Payment reference</div>
+          <div class="v"><em>Learner Name &amp; Surname</em> + 100REG</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-grid reveal">
+      <div class="contact-left">
+        <span class="eyebrow" style="display:block;margin-bottom:18px">Get in touch</span>
+        <h2>Let's ignite that <em>potential</em>.</h2>
+        <p>Questions about subjects, sessions or enrolment? Reach out - we're glad to help.</p>
+        <a href="loginregistration.html#register" class="btn btn-primary btn-lg btn-ic btn-ic-static"><svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg> Register</a>
+      </div>
+      <div class="contact-rows">
+        <div class="crow"><span class="ci ci-wa"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.86 9.86 0 0 0 4.73 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm5.8 14.03c-.24.68-1.42 1.32-1.96 1.36-.5.05-.98.24-3.3-.69-2.78-1.1-4.55-3.94-4.69-4.12-.14-.18-1.12-1.49-1.12-2.84s.71-2.02.96-2.29c.25-.27.55-.34.73-.34l.53.01c.17.01.4-.06.62.48.24.57.8 1.98.87 2.12.07.14.12.31.02.49-.09.18-.14.29-.28.45l-.42.49c-.14.14-.28.29-.12.57.16.27.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.27.14.43.12.59-.07.16-.18.68-.79.86-1.06.18-.27.36-.23.61-.14.25.09 1.6.75 1.87.89.27.14.46.2.53.32.07.11.07.66-.17 1.34Z"/></svg></span><div><span class="cl">WhatsApp</span><a href="https://wa.me/27818175308" target="_blank" rel="noopener">081 817 5308</a></div></div>
+        <div class="crow"><span class="ci"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3Z"/><path d="m3 7 9 6 9-6"/></svg></span><div><span class="cl">Email</span><a href="mailto:Ignitepotentialacademy@gmail.com">Ignitepotentialacademy@gmail.com</a></div></div>
+        <div class="crow"><span class="ci ci-tt"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.06-2.82h-3.3v13.4a2.59 2.59 0 0 1-2.59 2.5 2.59 2.59 0 1 1 .8-5.05v-3.36a5.94 5.94 0 0 0-.8-.05 5.94 5.94 0 1 0 5.94 5.94V8.9a7.53 7.53 0 0 0 4.4 1.41V7a4.28 4.28 0 0 1-3.39-1.18Z"/></svg></span><div><span class="cl">TikTok</span><a href="https://www.tiktok.com/@ipa3047" target="_blank" rel="noopener">@ipa3047</a></div></div>
+        <div class="crow"><span class="ci"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg></span><div><span class="cl">Delivery</span><b>Online · South Africa</b></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-col">
+        <div class="foot-brand">
+          <span class="logo-badge"><img src="images/logo.png" alt="IPA logo" onerror="this.style.display='none';this.parentNode.textContent='IPA'"></span>
+          <span><span class="bt">Ignite Potential Academy</span><span class="bs">Ignite Brilliance, Inspire Futures</span></span>
+        </div>
+        <p>An online tutoring programme providing affordable, high-quality academic support for Grade 8-12 learners across South Africa.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Explore</h5>
+        <a href="#about">About</a>
+        <a href="#subjects">Subjects</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#enrol">Enrol</a>
+      </div>
+      <div class="foot-col">
+        <h5>Legal</h5>
+        <a href="#" onclick="openLegal('privacy');return false;">Privacy Policy</a>
+        <a href="#" onclick="openLegal('terms');return false;">Terms &amp; Conditions</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Contact</h5>
+        <a href="https://wa.me/27818175308">081 817 5308</a>
+        <a href="mailto:Ignitepotentialacademy@gmail.com">Email us</a>
+        <a href="https://www.tiktok.com/@ipa3047" target="_blank" rel="noopener">TikTok</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Ignite Potential Academy. All rights reserved.</span>
+      <span>POPIA compliant · Republic of South Africa</span>
+    </div>
+  </div>
+</footer>
+
+<!-- LEGAL: PRIVACY -->
+<div class="legal" id="legal-privacy">
+  <div class="wrap">
+    <div class="legal-inner">
+      <h2>Privacy Policy</h2>
+      <p class="sub">Ignite Potential Academy (IPA)</p>
+      <h4>Collection of Information</h4>
+      <p>IPA collects personal and academic details provided during registration and course participation.</p>
+      <h4>Use of Information</h4>
+      <p>Information is used only for educational, administrative, and communication purposes related to academy services.</p>
+      <h4>Data Protection</h4>
+      <p>IPA takes reasonable steps to protect student data from unauthorized access, disclosure, or misuse.</p>
+      <h4>Confidentiality</h4>
+      <p>All student information is treated as confidential and will not be shared with third parties without consent, unless required by law.</p>
+      <h4>Access to Data</h4>
+      <p>Students may request access to their personal information and update or correct it when necessary.</p>
+      <h4>Third-Party Services</h4>
+      <p>IPA may use secure third-party platforms to deliver online sessions. These providers are required to protect student data.</p>
+      <h4>Retention of Information</h4>
+      <p>Student information is retained only as long as necessary to provide services or comply with legal obligations.</p>
+      <h4>Legal Compliance</h4>
+      <p>IPA complies with the Protection of Personal Information Act (POPIA) and other applicable laws of the Republic of South Africa.</p>
+      <h4>Contact Us</h4>
+      <p>For privacy concerns or data requests, contact IPA at <b>Ignitepotentialacademy@gmail.com</b>.</p>
+      <a class="btn btn-primary back" onclick="closeLegal('privacy')">← Back to site</a>
+    </div>
+  </div>
+</div>
+
+<!-- LEGAL: TERMS -->
+<div class="legal" id="legal-terms">
+  <div class="wrap">
+    <div class="legal-inner">
+      <h2>Terms &amp; Conditions</h2>
+      <p class="sub">Ignite Potential Academy (IPA)</p>
+      <h4>Provision of Information</h4>
+      <p>Students must supply accurate and current personal and academic details when registering with IPA.</p>
+      <h4>Payment Obligations</h4>
+      <p>All fees must be paid by the due date. Late payments will incur a penalty fee of R50.</p>
+      <h4>Refund Policy</h4>
+      <p>Refunds are only granted if a tutor fails to deliver the agreed tutoring services.</p>
+      <h4>Account Suspension and Termination</h4>
+      <p>IPA may suspend or terminate accounts in cases of:</p>
+      <ul>
+        <li>Non-payment of fees</li>
+        <li>Breach of these Terms and Conditions</li>
+        <li>Misconduct towards tutors or other students</li>
+      </ul>
+      <h4>Access to Services</h4>
+      <p>Access to online sessions and resources is restricted to registered students only. Sharing login details or course access is not permitted.</p>
+      <h4>Standards of Conduct</h4>
+      <p>Students are expected to maintain respectful and professional behavior in all academy interactions.</p>
+      <h4>Ownership of Materials</h4>
+      <p>All content, resources, and materials provided by IPA remain the intellectual property of the academy. Unauthorized copying, sharing, or distribution is prohibited.</p>
+      <h4>Academic Responsibility</h4>
+      <p>IPA does not guarantee specific grades or academic outcomes. Tutoring services are intended to support learning, not to ensure results.</p>
+      <h4>Events Beyond Control</h4>
+      <p>IPA will not be held liable for delays or failures caused by circumstances beyond its reasonable control, including strikes, power outages, or natural disasters.</p>
+      <h4>Applicable Law</h4>
+      <p>These Terms and Conditions are governed by the laws of the Republic of South Africa. Any disputes will be resolved under the jurisdiction of South African courts.</p>
+      <h4>Communication and Support</h4>
+      <p>For questions or concerns regarding these Terms and Conditions, students may contact IPA at <b>Ignitepotentialacademy@gmail.com</b>.</p>
+      <a class="btn btn-primary back" onclick="closeLegal('terms')">← Back to site</a>
+    </div>
+  </div>
+</div>
+
+<script src="infopage.js"></script>
+</body>
+</html>

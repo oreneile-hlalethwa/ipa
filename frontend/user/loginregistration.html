@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ignite Potential Academy - Sign in or Register</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;450;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="loginregistration.css">
+</head>
+<body>
+
+<a href="infopage.html" class="back-home">
+  <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Back to site
+</a>
+
+<main class="auth-wrap">
+
+  <div class="auth-card">
+
+    <!-- Logo on top, centered -->
+    <div class="auth-logo">
+      <span class="logo-badge"><img src="images/logo.png" alt="IPA logo" onerror="this.style.display='none';this.parentNode.textContent='IPA'"></span>
+      <div class="auth-brand">Ignite Potential Academy</div>
+      <div class="auth-slogan">Ignite Brilliance, Inspire Futures</div>
+    </div>
+
+    <!-- Toggle tabs -->
+    <div class="auth-tabs">
+      <button class="auth-tab is-active" id="tabLogin" type="button">Log in</button>
+      <button class="auth-tab" id="tabRegister" type="button">Register</button>
+      <span class="tab-slider" id="tabSlider"></span>
+    </div>
+
+    <!-- ============ LOGIN VIEW ============ -->
+    <section class="auth-view is-active" id="viewLogin">
+      <div class="info-panel">
+        <h2>Login</h2>
+        <p>Sign in with your email and password to access your account.</p>
+      </div>
+
+      <form class="auth-form" id="loginForm" novalidate>
+        <div class="field">
+          <label for="loginEmail">Email address</label>
+          <div class="input-wrap">
+            <svg class="fi" viewBox="0 0 24 24"><path d="M3 6h18v12H3Z"/><path d="m3 7 9 6 9-6"/></svg>
+            <input type="email" id="loginEmail" name="email" placeholder="you@example.com" autocomplete="email" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <div class="input-wrap">
+            <svg class="fi" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+            <input type="password" id="loginPassword" name="password" placeholder="Your password" autocomplete="current-password" required>
+            <button type="button" class="toggle-pw" aria-label="Show password" data-target="loginPassword">
+              <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <label class="check"><input type="checkbox" id="remember"><span>Remember me</span></label>
+          <a href="#" class="text-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
+          Log in
+        </button>
+
+        <p class="switch-line">Haven't registered yet? <a href="#" class="switch-link" data-go="register">Sign up</a></p>
+      </form>
+    </section>
+
+    <!-- ============ REGISTER VIEW ============ -->
+    <section class="auth-view" id="viewRegister">
+      <div class="info-panel">
+        <h2>Register</h2>
+        <p>Create an account by entering the learner and guardian details below.</p>
+      </div>
+
+      <form class="auth-form" id="registerForm" novalidate>
+
+        <div class="form-group">
+          <div class="group-head">
+            <svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5Z"/></svg>
+            Learner details
+          </div>
+
+          <div class="field-2">
+            <div class="field">
+              <label for="learnerName">Name &amp; surname</label>
+              <div class="input-wrap">
+                <svg class="fi" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+                <input type="text" id="learnerName" name="learnerName" placeholder="Name and surname" autocomplete="name" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="learnerGrade">Grade</label>
+              <div class="input-wrap select-field">
+                <svg class="fi" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>
+                <select id="learnerGrade" name="learnerGrade" required>
+                  <option value="" disabled selected>Select grade</option>
+                  <option value="8">Grade 8</option>
+                  <option value="9">Grade 9</option>
+                  <option value="10">Grade 10</option>
+                  <option value="11">Grade 11</option>
+                  <option value="12">Grade 12</option>
+                  <option value="matric-rewrite">Matric Rewrite</option>
+                </select>
+                <svg class="fi-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-2">
+            <div class="field">
+              <label for="learnerDob">Date of birth</label>
+              <div class="input-wrap">
+                <svg class="fi" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <input type="date" id="learnerDob" name="learnerDob" required>
+              </div>
+            </div>
+            <div class="field"></div>
+          </div>
+
+          <div class="field-2">
+            <div class="field">
+              <label for="learnerWhatsapp">WhatsApp number</label>
+              <div class="input-wrap">
+                <svg class="fi" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.3A9 9 0 1 0 12 3Z"/></svg>
+                <input type="tel" id="learnerWhatsapp" name="learnerWhatsapp" placeholder="WhatsApp number" autocomplete="tel" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="learnerEmail">Email</label>
+              <div class="input-wrap">
+                <svg class="fi" viewBox="0 0 24 24"><path d="M3 6h18v12H3Z"/><path d="m3 7 9 6 9-6"/></svg>
+                <input type="email" id="learnerEmail" name="learnerEmail" placeholder="learner@example.com" autocomplete="email" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-2">
+            <div class="field">
+              <label for="learnerProvince">Province</label>
+              <div class="input-wrap select-field">
+                <svg class="fi" viewBox="0 0 24 24"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>
+                <select id="learnerProvince" name="learnerProvince" required>
+                  <option value="" disabled selected>Select province</option>
+                  <option value="Eastern Cape">Eastern Cape</option>
+                  <option value="Free State">Free State</option>
+                  <option value="Gauteng">Gauteng</option>
+                  <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                  <option value="Limpopo">Limpopo</option>
+                  <option value="Mpumalanga">Mpumalanga</option>
+                  <option value="Northern Cape">Northern Cape</option>
+                  <option value="North West">North West</option>
+                  <option value="Western Cape">Western Cape</option>
+                </select>
+                <svg class="fi-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </div>
+            <div class="field">
+              <label for="learnerSchool">Name of school</label>
+              <div class="input-wrap">
+                <svg class="fi" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>
+                <input type="text" id="learnerSchool" name="learnerSchool" placeholder="Current school" required>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="group-head">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Guardian details
+          </div>
+
+          <div class="field">
+            <label for="guardianName">Name</label>
+            <div class="input-wrap">
+              <svg class="fi" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+              <input type="text" id="guardianName" name="guardianName" placeholder="Name and surname" autocomplete="name" required>
+            </div>
+          </div>
+
+          <div class="field-2">
+            <div class="field">
+              <label for="guardianWhatsapp">WhatsApp number</label>
+              <div class="input-wrap">
+                <svg class="fi" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.3A9 9 0 1 0 12 3Z"/></svg>
+                <input type="tel" id="guardianWhatsapp" name="guardianWhatsapp" placeholder="WhatsApp number" autocomplete="tel" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="guardianEmail">Email</label>
+              <div class="input-wrap">
+                <svg class="fi" viewBox="0 0 24 24"><path d="M3 6h18v12H3Z"/><path d="m3 7 9 6 9-6"/></svg>
+                <input type="email" id="guardianEmail" name="guardianEmail" placeholder="guardian@example.com" autocomplete="email" required>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="group-head">
+            <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+            Account security
+          </div>
+
+          <div class="field-2">
+            <div class="field">
+              <label for="regPassword">Password</label>
+              <div class="input-wrap">
+                <svg class="fi" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                <input type="password" id="regPassword" name="password" placeholder="Create a password" autocomplete="new-password" required>
+                <button type="button" class="toggle-pw" aria-label="Show password" data-target="regPassword">
+                  <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="field">
+              <label for="regPassword2">Confirm password</label>
+              <div class="input-wrap">
+                <svg class="fi" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                <input type="password" id="regPassword2" name="password2" placeholder="Re-enter password" autocomplete="new-password" required>
+                <button type="button" class="toggle-pw" aria-label="Show password" data-target="regPassword2">
+                  <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <label class="check terms"><input type="checkbox" id="agree" required><span>I agree to the <a href="infopage.html" class="text-link">Terms</a> and <a href="infopage.html" class="text-link">Privacy Policy</a>.</span></label>
+
+        <button type="submit" class="btn-submit">
+          <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
+          Create account
+        </button>
+
+        <p class="switch-line">Already registered? <a href="#" class="switch-link" data-go="login">Log in</a></p>
+      </form>
+    </section>
+
+  </div>
+
+  <p class="auth-foot">© 2026 Ignite Potential Academy · <a href="infopage.html">Back to home</a></p>
+</main>
+
+<script src="api.js"></script>
+<script src="loginregistration.js"></script>
+</body>
+</html>
