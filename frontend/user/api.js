@@ -1,6 +1,6 @@
 // api.js - central backend config + token helpers
 // Change API_BASE to your production URL when you deploy.
-const API_BASE = "https://ipa-can3.onrender.com";
+const API_BASE = "https://ipa-can3.onrender.com/api";
 
 // --- token storage ---
 function saveAuth(data){
