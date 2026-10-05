@@ -3,6 +3,8 @@
 
   let registrationPaid=false;  // true once learner has an approved enrolment
   let monthlyAmount=0;         // monthly subtotal (excludes reg fee)
+  let lateFeeOwed=0;           // R owed from a missed month (added to next payment)
+  let billingStatus=null;      // 'active' | 'optedout' | 'disabled' | null
 
   // ===== ROUTE GUARD =====
   // Not logged in -> go to login. Admins -> their dashboard.
@@ -101,22 +103,51 @@
   function money(n){ return 'R'+n.toLocaleString('en-ZA'); }
 
 
-  // fetch whether the once-off registration fee still applies
+  // fetch registration-fee, late-fee and billing status
   (async function loadRegStatus(){
     try{
       const res=await apiFetch('/me',{method:'GET'});
-      if(res.ok){ const p=await res.json(); registrationPaid=!!p.registration_paid; }
+      if(res.ok){
+        const p=await res.json();
+        registrationPaid=!!p.registration_paid;
+        lateFeeOwed=p.late_fee_owed||0;
+        billingStatus=p.billing_status||null;
+      }
     }catch(_){}
     updateFeeRow();
+    showBillingNotice();
     if(typeof updateTotal==='function' && selectedPkg) updateTotal();
   })();
 
-  // show/hide the R100 fee row in the order summary based on registrationPaid
+  // show/hide the R100 registration row and the late-fee row
   function updateFeeRow(){
     const feeRow=document.querySelector('.rc-fee');
-    if(!feeRow) return;
-    if(registrationPaid){ feeRow.style.display='none'; }
-    else { feeRow.style.display=''; }
+    if(feeRow) feeRow.style.display = registrationPaid ? 'none' : '';
+    const lateRow=document.getElementById('rcLateRow');
+    if(lateRow){
+      lateRow.style.display = lateFeeOwed ? '' : 'none';
+      document.getElementById('rcLateAmt').textContent = money(lateFeeOwed);
+    }
+  }
+
+  // banner at the top of the portal explaining the billing state
+  function showBillingNotice(){
+    const el=document.getElementById('billingNotice');
+    if(!el) return;
+    let msg='';
+    el.classList.remove('disabled');
+    if(billingStatus==='disabled'){
+      el.classList.add('disabled');
+      msg='Your enrolment was paused because this month\u2019s payment was not received. '+
+          'Submit a new payment to continue'+(lateFeeOwed?' \u2014 a '+money(lateFeeOwed)+' late fee will be added.':'.');
+    } else if(billingStatus==='optedout'){
+      msg='You told us you are not continuing. Submit a new payment whenever you are ready to come back'+
+          (lateFeeOwed?' \u2014 a '+money(lateFeeOwed)+' late fee will be added.':'.');
+    } else if(lateFeeOwed){
+      msg='Your payment is late, so a '+money(lateFeeOwed)+' late fee has been added to your next payment.';
+    }
+    el.textContent=msg;
+    el.style.display = msg ? '' : 'none';
   }
 
   function updateTotal(){
@@ -159,7 +190,7 @@
 
     // add the once-off registration fee to the grand total (first payment only)
     const regFee = registrationPaid ? 0 : 100;
-    const grand = total + (total ? regFee : 0);
+    const grand = total + (total ? regFee + lateFeeOwed : 0);
     monthlyAmount = total;                       // remember the monthly (for submit/receipt)
     totalAmt.textContent = total? money(grand) : '—';
     continueBtn.disabled=!ready;
@@ -285,6 +316,9 @@
         sessionStorage.setItem('ipa_confirm_subs', subsTxt||'—');
         sessionStorage.setItem('ipa_confirm_amt', (totalAmt&&totalAmt.textContent)||'—');
       }catch(_){}
+      // this payment covers the late fee and reactivates billing
+      lateFeeOwed=0; billingStatus='active';
+      updateFeeRow(); showBillingNotice();
       loadSubmissions();     // refresh in the background (no await, no switch)
       goStep(3);             // show confirmation and stay
     } catch(err){
@@ -471,7 +505,8 @@
 
     mySubs.forEach(rec=>{
       const reg=rec.registration_fee||0;
-      const grand=(rec.total||0)+reg;
+      const late=rec.late_fee||0;
+      const grand=(rec.total||0)+reg+late;
       const amount='R'+grand.toLocaleString('en-ZA');
       const card=document.createElement('div');
       card.className='sub-card';
@@ -505,7 +540,8 @@
     const rec=mySubs.find(r=>r.id===id);
     if(!rec) return;
     const reg=rec.registration_fee||0;
-    const grand=(rec.total||0)+reg;
+    const late=rec.late_fee||0;
+    const grand=(rec.total||0)+reg+late;
     const monthly='R'+(rec.total||0).toLocaleString('en-ZA');
     const regTxt='R'+reg.toLocaleString('en-ZA');
     const grandTxt='R'+grand.toLocaleString('en-ZA');
@@ -526,6 +562,7 @@
       +'<div class="rp-row"><span class="k">Receipt no.</span><span class="v">IPA-'+String(rec.id).padStart(5,'0')+'</span></div>'
       +'<div class="rp-row"><span class="k">Monthly fee</span><span class="v">'+monthly+'</span></div>'
       +(reg? '<div class="rp-row"><span class="k">Registration fee (once-off)</span><span class="v">'+regTxt+'</span></div>' : '')
+      +(late? '<div class="rp-row"><span class="k">Late fee</span><span class="v">R'+late.toLocaleString('en-ZA')+'</span></div>' : '')
       +'<div class="rp-total"><span class="k">Total paid</span><span class="v">'+grandTxt+'</span></div>'
       +'<div class="rp-foot">Thank you for enrolling with Ignite Potential Academy.</div>';
     window.print();

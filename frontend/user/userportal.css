@@ -313,3 +313,7 @@ img{display:block}
 
 .confirm-next{margin-top:20px;font-size:.9rem;color:var(--muted);line-height:1.6;max-width:460px;margin-left:auto;margin-right:auto}
 .confirm-next b{color:var(--navy)}
+
+/* billing notice (late fee / opted out / disabled) */
+.billing-notice{margin:0 0 18px;padding:14px 16px;border-radius:10px;border-left:4px solid #c98a12;background:#fdf6e7;color:#5b4a1f;font-size:.9rem;line-height:1.5}
+.billing-notice.disabled{border-left-color:#b23a34;background:#fbeceb;color:#6b2420}

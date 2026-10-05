@@ -44,17 +44,28 @@
     if(status==='rejected') return '<span class="badge noproof"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Rejected</span>';
     return '<span class="badge noproof">No proof</span>';
   }
+  function billingBadge(status){
+    if(status==='active')   return '<span class="badge approved">Active</span>';
+    if(status==='optedout') return '<span class="badge pending">Opted out</span>';
+    if(status==='disabled') return '<span class="badge noproof">Disabled</span>';
+    return '<span class="pkg-tag">\u2014</span>';
+  }
+  function billingLabel(status){
+    return {active:'Active', optedout:'Opted out', disabled:'Disabled (unpaid)'}[status] || 'No payments yet';
+  }
 
   const tblBody=document.getElementById('tblBody');
   const cardsList=document.getElementById('cardsList');
   const tblEmpty=document.getElementById('tblEmpty');
   const gradeSelect=document.getElementById('gradeSelect');
   const searchInput=document.getElementById('searchInput');
+  const billingSelect=document.getElementById('billingSelect');
 
   function currentList(){
     const g=gradeSelect.value, q=searchInput.value.trim().toLowerCase();
     return STUDENTS.filter(s=>{
       if(g!=='all' && String(s.grade)!==g) return false;
+      if(billingSelect.value!=='all' && s.billing_status!==billingSelect.value) return false;
       if(q && !((s.name||'').toLowerCase().includes(q)||(s.guardian_name||'').toLowerCase().includes(q))) return false;
       return true;
     });
@@ -70,7 +81,7 @@
     document.getElementById('stPending').textContent=allEnr.filter(e=>e.status==='pending').length;
     document.getElementById('stApproved').textContent=allEnr.filter(e=>e.status==='approved').length;
     document.getElementById('stRevenue').textContent=money(
-      allEnr.filter(e=>e.status==='approved').reduce((s,e)=>s+enrTotal(e)+(e.registration_fee||0),0)
+      allEnr.filter(e=>e.status==='approved').reduce((s,e)=>s+enrTotal(e)+(e.registration_fee||0)+(e.late_fee||0),0)
     );
     document.getElementById('rcNum').textContent=list.length;
 
@@ -89,6 +100,7 @@
         '<td>Grade '+(s.grade||'—')+'</td>'+
         '<td><span class="pkg-tag">'+rollup+'</span></td>'+
         '<td>'+( s.pending_count>0 ? pmtBadge('pending') : (s.approved_count>0 ? pmtBadge('approved') : pmtBadge('noproof')) )+'</td>'+
+        '<td>'+billingBadge(s.billing_status)+'</td>'+
         '<td style="text-align:right"><button class="btn-view" data-i="'+idx+'"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg> <span>View</span></button></td>';
       tblBody.appendChild(tr);
       // mobile card
@@ -96,7 +108,7 @@
       card.innerHTML=
         '<div class="rc-top"><span class="cell-avatar">'+USERICON+'</span>'+
           '<div class="info"><div class="nm">'+(s.name||s.email)+'</div><div class="sub">Grade '+(s.grade||'—')+' · Guardian: '+(s.guardian_name||'—')+'</div></div></div>'+
-        '<div class="rc-meta"><span class="pkg-tag">'+rollup+'</span>'+( s.pending_count>0 ? pmtBadge('pending') : (s.approved_count>0 ? pmtBadge('approved') : pmtBadge('noproof')) )+'</div>'+
+        '<div class="rc-meta"><span class="pkg-tag">'+rollup+'</span>'+( s.pending_count>0 ? pmtBadge('pending') : (s.approved_count>0 ? pmtBadge('approved') : pmtBadge('noproof')) )+billingBadge(s.billing_status)+'</div>'+
         '<button class="btn-view" data-i="'+idx+'"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg> <span>View details</span></button>';
       cardsList.appendChild(card);
     });
@@ -121,7 +133,10 @@
     document.getElementById('mContact').innerHTML=
       ci('Date of birth', s.date_of_birth)+ci('Learner WhatsApp', s.whatsapp)+ci('Learner email', s.email)+
       ci('School', s.school)+ci('Province', s.province)+
-      ci('Guardian', s.guardian_name)+ci('Guardian WhatsApp', s.guardian_whatsapp)+ci('Guardian email', s.guardian_email);
+      ci('Guardian', s.guardian_name)+ci('Guardian WhatsApp', s.guardian_whatsapp)+ci('Guardian email', s.guardian_email)+
+      ci('Billing status', billingLabel(s.billing_status))+
+      ci('Payment day', s.cycle_day ? 'Day '+s.cycle_day+' of each month' : '')+
+      ci('Late fee owed', s.late_fee_owed ? money(s.late_fee_owed) : 'None');
 
     // payments list
     renderPayments(s);
@@ -138,7 +153,8 @@
     enrs.forEach(e=>{
       const monthly=enrTotal(e);
       const reg=e.registration_fee||0;
-      const grand=monthly+reg;
+      const late=e.late_fee||0;
+      const grand=monthly+reg+late;
       // build receipt-style lines
       let lines='';
       if(e.package_type==='oneonone'){
@@ -149,6 +165,7 @@
         lines+='<div class="pay-line"><span>'+(e.package_label||'Group')+' <em>'+subjectsText(e)+'</em></span><b>'+money(monthly)+' /mo</b></div>';
       }
       if(reg) lines+='<div class="pay-line"><span>Registration fee <em>once-off</em></span><b>'+money(reg)+'</b></div>';
+      if(late) lines+='<div class="pay-line"><span>Late fee <em>missed payment</em></span><b>'+money(late)+'</b></div>';
 
       const proof = e.proof_url
         ? '<a href="#" class="pay-proof" data-proof="'+e.proof_url+'">View proof of payment</a>'
@@ -221,6 +238,7 @@
 
   gradeSelect.addEventListener('change',render);
   searchInput.addEventListener('input',render);
+  billingSelect.addEventListener('change',render);
 
   loadData();
 })();

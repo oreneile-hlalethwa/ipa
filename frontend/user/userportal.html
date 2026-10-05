@@ -97,6 +97,9 @@
     <p id="pageSub">Choose a package, upload your proof of payment, and we'll review it shortly.</p>
   </div>
 
+  <!-- BILLING NOTICE (late fee / opted out / disabled) - filled by JS -->
+  <div class="billing-notice" id="billingNotice" style="display:none"></div>
+
   <!-- PORTAL TABS -->
   <div class="portal-tabs">
     <button type="button" class="ptab active" id="tabEnrol" data-view="enrol">New enrolment</button>
@@ -191,6 +194,9 @@
       <div class="rc-fee">
         <span>Registration fee (once-off)</span><b>R100</b>
       </div>
+      <div class="rc-fee rc-late" id="rcLateRow" style="display:none">
+        <span>Late fee (missed payment)</span><b id="rcLateAmt">R0</b>
+      </div>
       <div class="rc-total">
         <div class="rc-t-lbl">Total due<span id="rcNote"></span></div>
         <div class="rc-t-amt" id="totalAmt">—</div>
@@ -280,6 +286,7 @@
 <!-- ===== PRINTABLE RECEIPT (hidden until print) ===== -->
 <div id="receiptPrint" class="receipt-print" aria-hidden="true"></div>
 
+<script src="../config.js"></script>
 <script src="api.js"></script>
 <script src="userportal.js"></script>
 </body>

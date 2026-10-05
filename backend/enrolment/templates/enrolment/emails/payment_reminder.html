@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment reminder</title>
+</head>
+<body style="margin:0;padding:0;background:#f3f5f9;font-family:Arial,Helvetica,sans-serif;color:#1b2436;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3f5f9;padding:28px 12px;">
+  <tr><td align="center">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e8ebf1;">
+
+      <!-- header -->
+      <tr><td align="center" style="background:#16294d;padding:26px 24px 22px;">
+        <img src="{{ logo_url }}" alt="IPA" width="64" height="64" style="display:block;width:64px;height:64px;border-radius:50%;background:#ffffff;border:2px solid #ffffff;color:#16294d;font-weight:bold;font-size:16px;line-height:64px;text-align:center;">
+        <div style="color:#ffffff;font-size:18px;font-weight:bold;margin-top:12px;">Ignite Potential Academy</div>
+        <div style="color:#aab8d6;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-top:4px;">Ignite Brilliance, Inspire Futures</div>
+      </td></tr>
+
+      <!-- intro -->
+      <tr><td style="padding:28px 28px 8px;">
+        <div style="display:inline-block;background:#fdf6e7;color:#8a5a00;font-size:12px;font-weight:bold;padding:5px 10px;border-radius:20px;">Payment reminder</div>
+        <h1 style="font-size:21px;color:#16294d;margin:14px 0 8px;">Payment due {{ due_text }}</h1>
+        <p style="font-size:14px;line-height:1.6;color:#4a5468;margin:0;">
+          Dear {{ guardian_name }} and {{ learner_name }},<br><br>
+          This is a friendly reminder that <b>{{ learner_name }}</b>'s monthly payment for Ignite Potential Academy is due soon.
+        </p>
+      </td></tr>
+
+      <!-- summary card -->
+      <tr><td style="padding:18px 28px 6px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8ebf1;border-radius:10px;">
+          <tr><td colspan="2" style="padding:12px 16px;background:#fafbfc;border-bottom:1px solid #e8ebf1;font-size:12px;font-weight:bold;color:#284f9e;text-transform:uppercase;letter-spacing:1px;">Payment summary</td></tr>
+          <tr>
+            <td style="padding:11px 16px;font-size:14px;color:#6a7488;border-bottom:1px solid #f0f2f6;">Learner</td>
+            <td align="right" style="padding:11px 16px;font-size:14px;color:#1b2436;font-weight:bold;border-bottom:1px solid #f0f2f6;">{{ learner_name }}</td>
+          </tr>
+          <tr>
+            <td style="padding:11px 16px;font-size:14px;color:#6a7488;border-bottom:1px solid #f0f2f6;">Due date</td>
+            <td align="right" style="padding:11px 16px;font-size:14px;color:#1b2436;font-weight:bold;border-bottom:1px solid #f0f2f6;">{{ due_text }}</td>
+          </tr>
+          <tr>
+            <td style="padding:11px 16px;font-size:14px;color:#6a7488;">Late fee from</td>
+            <td align="right" style="padding:11px 16px;font-size:14px;color:#b23a34;font-weight:bold;">{{ late_from_text }} (R{{ late_fee }})</td>
+          </tr>
+        </table>
+      </td></tr>
+
+      <!-- banking details -->
+      <tr><td style="padding:16px 28px 6px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eef3fb;border-left:4px solid #284f9e;border-radius:0 8px 8px 0;">
+          <tr><td style="padding:14px 16px;font-size:13px;line-height:1.8;color:#1b2436;">
+            <b style="color:#16294d;">Banking details for EFT</b><br>
+            Account holder: <b>Mr L Chivambo</b><br>
+            Bank: <b>ABSA</b><br>
+            Account number: <b>4124 9754 48</b><br>
+            Reference: <b>{{ learner_name }}</b>
+          </td></tr>
+        </table>
+      </td></tr>
+
+      <!-- how to pay -->
+      <tr><td style="padding:20px 28px 4px;">
+        <p style="font-size:14px;line-height:1.6;color:#4a5468;margin:0;">
+          To pay, log in to the <a href="{{ portal_url }}" style="color:#284f9e;font-weight:bold;">learner portal</a>,
+          choose this month's package and upload your proof of payment.
+        </p>
+      </td></tr>
+
+      <!-- opt-out -->
+      <tr><td style="padding:22px 28px 26px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #e8ebf1;">
+          <tr><td align="center" style="padding-top:18px;font-size:13px;line-height:1.6;color:#6a7488;">
+            <b style="color:#1b2436;">Not continuing next month?</b><br>
+            Let us know and you won't receive further reminders or be charged a late fee.<br>
+            <a href="{{ optout_url }}" style="color:#284f9e;font-weight:bold;">I'm not continuing</a>
+          </td></tr>
+        </table>
+      </td></tr>
+
+    </table>
+
+    <div style="max-width:560px;font-size:11px;color:#98a1b3;text-align:center;margin-top:14px;line-height:1.6;">
+      &copy; Ignite Potential Academy<br>
+      You're receiving this because {{ learner_name }} is enrolled with Ignite Potential Academy.
+    </div>
+  </td></tr>
+</table>
+</body>
+</html>

@@ -9,6 +9,8 @@ from .views import (
     AdminEnrolmentApproveView,
     AdminEnrolmentRejectView,
     AdminLearnerDeleteView,
+    OptOutView,
+    RunBillingView,
 )
 
 urlpatterns = [
@@ -23,4 +25,8 @@ urlpatterns = [
     path("admin/enrolments/<int:pk>/approve", AdminEnrolmentApproveView.as_view(), name="admin-approve"),
     path("admin/enrolments/<int:pk>/reject", AdminEnrolmentRejectView.as_view(), name="admin-reject"),
     path("admin/enrolments/<int:pk>/deregister", AdminLearnerDeleteView.as_view(), name="admin-deregister"),
+
+    # billing (public: email opt-out link + daily cron trigger)
+    path("billing/optout/<str:token>", OptOutView.as_view(), name="billing-optout"),
+    path("billing/run", RunBillingView.as_view(), name="billing-run"),
 ]

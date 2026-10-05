@@ -28,7 +28,7 @@ class EnrolmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Enrolment
         fields = [
-            "id", "package_type", "package_label", "monthly_fee", "registration_fee",
+            "id", "package_type", "package_label", "monthly_fee", "registration_fee", "late_fee",
             "status", "subject_lines", "total", "has_proof", "created_at", "approved_at",
         ]
 
@@ -54,7 +54,7 @@ class AdminEnrolmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Enrolment
         fields = [
-            "id", "package_type", "package_label", "monthly_fee", "registration_fee",
+            "id", "package_type", "package_label", "monthly_fee", "registration_fee", "late_fee",
             "status", "total", "subject_lines", "proof_url", "created_at", "approved_at",
         ]
 
@@ -93,6 +93,9 @@ class AdminStudentSerializer(serializers.Serializer):
     payment_count = serializers.SerializerMethodField()
     pending_count = serializers.SerializerMethodField()
     approved_count = serializers.SerializerMethodField()
+    billing_status = serializers.SerializerMethodField()
+    cycle_day = serializers.SerializerMethodField()
+    late_fee_owed = serializers.SerializerMethodField()
 
     def _p(self, obj):
         return getattr(obj, "learner_profile", None)
@@ -132,3 +135,14 @@ class AdminStudentSerializer(serializers.Serializer):
 
     def get_approved_count(self, obj):
         return sum(1 for e in self._enrolments(obj) if e.status == Enrolment.STATUS_APPROVED)
+
+    # ---- billing (reminders / late fee / opt-out) ----
+    def _b(self, obj):
+        return getattr(obj, "billing", None)
+
+    def get_billing_status(self, obj):
+        b = self._b(obj); return b.status if b else None
+    def get_cycle_day(self, obj):
+        b = self._b(obj); return b.cycle_day if b else None
+    def get_late_fee_owed(self, obj):
+        b = self._b(obj); return b.late_fee_owed if b else 0

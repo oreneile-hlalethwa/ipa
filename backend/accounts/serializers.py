@@ -77,13 +77,24 @@ class LearnerProfileSerializer(serializers.ModelSerializer):
 
     email = serializers.EmailField(source="user.email", read_only=True)
     registration_paid = serializers.SerializerMethodField()
+    billing_status = serializers.SerializerMethodField()
+    late_fee_owed = serializers.SerializerMethodField()
 
     class Meta:
         model = LearnerProfile
         fields = [
             "email", "name", "date_of_birth", "grade", "school", "province", "whatsapp",
             "guardian_name", "guardian_whatsapp", "guardian_email", "registration_paid",
+            "billing_status", "late_fee_owed",
         ]
+
+    def get_billing_status(self, obj):
+        b = getattr(obj.user, "billing", None)
+        return b.status if b else None
+
+    def get_late_fee_owed(self, obj):
+        b = getattr(obj.user, "billing", None)
+        return b.late_fee_owed if b else 0
 
     def get_registration_paid(self, obj):
         # True once the learner has any APPROVED enrolment (fee no longer applies)

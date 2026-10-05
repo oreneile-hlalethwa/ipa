@@ -1,3 +1,5 @@
+import secrets
+
 from django.conf import settings
 from django.db import models
 
@@ -47,6 +49,7 @@ class Enrolment(models.Model):
     package_type = models.CharField(max_length=20, choices=TYPE_CHOICES)
     monthly_fee = models.PositiveIntegerField(null=True, blank=True)
     registration_fee = models.PositiveIntegerField(default=0)  # snapshot at submit: 100 or 0
+    late_fee = models.PositiveIntegerField(default=0)          # snapshot at submit: owed late fee included
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_NO_PROOF)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -113,3 +116,45 @@ class ProofOfPayment(models.Model):
 
     def __str__(self):
         return f"Proof for enrolment {self.enrolment_id}"
+
+
+def generate_optout_token():
+    """Random, unguessable token used in the opt-out email link."""
+    return secrets.token_urlsafe(32)
+
+
+class LearnerBilling(models.Model):
+    """
+    Monthly billing state for one learner.
+    cycle_day = day of the month they last submitted proof of payment.
+    """
+
+    STATUS_ACTIVE = "active"
+    STATUS_OPTED_OUT = "optedout"
+    STATUS_DISABLED = "disabled"
+    STATUS_CHOICES = [
+        (STATUS_ACTIVE, "Active"),
+        (STATUS_OPTED_OUT, "Opted out"),
+        (STATUS_DISABLED, "Disabled (unpaid)"),
+    ]
+
+    learner = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="billing"
+    )
+    cycle_day = models.PositiveSmallIntegerField(null=True, blank=True)   # 1-31
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_ACTIVE)
+    late_fee_owed = models.PositiveIntegerField(default=0)
+    optout_token = models.CharField(max_length=64, unique=True, default=generate_optout_token)
+
+    last_paid_at = models.DateTimeField(null=True, blank=True)        # last proof submission
+    status_changed_at = models.DateTimeField(null=True, blank=True)
+
+    # "already done for this due date" markers, so the daily job never repeats an action
+    reminder_sent_for = models.DateField(null=True, blank=True)
+    late_fee_applied_for = models.DateField(null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.learner} - {self.get_status_display()} (day {self.cycle_day})"

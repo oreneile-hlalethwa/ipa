@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'cloudinary',
     'cloudinary_storage',
+    'anymail',
 
     # local apps
     'accounts',
@@ -173,9 +174,29 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # ---------------------------------------------------------------------------
-# Email (console for now)
+# Email - Brevo API when a key is set (Render blocks SMTP), else console
 # ---------------------------------------------------------------------------
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+BREVO_API_KEY = os.getenv("BREVO_API_KEY", "")
+if BREVO_API_KEY:
+    EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
+    ANYMAIL = {"BREVO_API_KEY": BREVO_API_KEY}
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+DEFAULT_FROM_EMAIL = os.getenv(
+    "DEFAULT_FROM_EMAIL", "Ignite Potential Academy <noreply@example.com>"
+)
+
+# ---------------------------------------------------------------------------
+# Billing - monthly reminders, late fee, opt-out
+# ---------------------------------------------------------------------------
+LATE_FEE = int(os.getenv("LATE_FEE", "75"))   # R, added if unpaid 3 days after cycle day
+
+# where the frontend lives (used to build the opt-out link in emails)
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://127.0.0.1:5500/frontend").rstrip("/")
+
+# shared secret cron-job.org sends in the X-Cron-Secret header
+CRON_SECRET = os.getenv("CRON_SECRET", "")
 
 # ---------------------------------------------------------------------------
 # Production security (only when DEBUG is off)

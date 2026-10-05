@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ignite Potential Academy - Not continuing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;450;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="loginregistration.css">
+</head>
+<body>
+
+<a href="infopage.html" class="back-home">
+  <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Back to site
+</a>
+
+<main class="auth-wrap">
+  <div class="auth-card">
+
+    <div class="auth-logo">
+      <span class="logo-badge"><img src="images/logo.png" alt="IPA logo" onerror="this.style.display='none';this.parentNode.textContent='IPA'"></span>
+      <div class="auth-brand">Ignite Potential Academy</div>
+      <div class="auth-slogan">Ignite Brilliance, Inspire Futures</div>
+    </div>
+
+    <!-- loading -->
+    <div class="info-panel" id="optLoading">
+      <h2>One moment...</h2>
+      <p>Checking your link.</p>
+    </div>
+
+    <!-- confirm form -->
+    <div id="optForm" style="display:none">
+      <div class="info-panel">
+        <h2>Not continuing next month?</h2>
+        <p id="optIntro"></p>
+      </div>
+      <form class="auth-form" id="optoutForm" novalidate>
+        <label class="check terms"><input type="checkbox" id="optConfirm"><span id="optLabel"></span></label>
+        <button type="submit" class="btn-submit">Confirm</button>
+        <p class="switch-line">Changed your mind? Just close this page and nothing will change.</p>
+      </form>
+    </div>
+
+    <!-- result / error -->
+    <div class="info-panel" id="optDone" style="display:none">
+      <h2></h2>
+      <p></p>
+    </div>
+
+  </div>
+  <p class="auth-foot">© 2026 Ignite Potential Academy · <a href="infopage.html">Back to home</a></p>
+</main>
+
+<script src="../config.js"></script>
+<script src="api.js"></script>
+<script src="optout.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Subject, Enrolment, EnrolmentSubject, ProofOfPayment
+from .models import Subject, Enrolment, EnrolmentSubject, ProofOfPayment, LearnerBilling
 
 
 @admin.register(Subject)
@@ -31,3 +31,11 @@ class EnrolmentAdmin(admin.ModelAdmin):
 @admin.register(ProofOfPayment)
 class ProofOfPaymentAdmin(admin.ModelAdmin):
     list_display = ("enrolment", "original_name", "uploaded_at")
+
+
+@admin.register(LearnerBilling)
+class LearnerBillingAdmin(admin.ModelAdmin):
+    list_display = ("learner", "status", "cycle_day", "late_fee_owed", "last_paid_at")
+    list_filter = ("status",)
+    search_fields = ("learner__email",)
+    readonly_fields = ("optout_token",)

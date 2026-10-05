@@ -1,12 +1,16 @@
+import hmac
 import json
 
+from django.conf import settings
+from django.db import transaction
 from django.utils import timezone
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Subject, Enrolment, EnrolmentSubject, ProofOfPayment
+from .billing import process_billing
+from .models import Subject, Enrolment, EnrolmentSubject, ProofOfPayment, LearnerBilling
 from .serializers import (
     SubjectSerializer,
     EnrolmentSerializer,
@@ -67,29 +71,48 @@ class EnrolmentCreateView(APIView):
         ).exists()
         reg_fee = 0 if has_approved else Enrolment.REGISTRATION_FEE
 
-        # create the enrolment
-        enrolment = Enrolment.objects.create(
-            learner=request.user,
-            package_type=package_type,
-            monthly_fee=monthly_fee,
-            registration_fee=reg_fee,
-            status=Enrolment.STATUS_PENDING,  # proof is attached, so it's pending review
-        )
+        # create the enrolment, subjects, proof and billing update together:
+        # if anything fails, nothing is saved
+        with transaction.atomic():
+            billing, _ = LearnerBilling.objects.select_for_update().get_or_create(
+                learner=request.user
+            )
+            late_fee = billing.late_fee_owed   # carried over from a missed month (0 if none)
 
-        for item in subjects:
-            name = item.get("name")
-            hours = int(item.get("hours", 1) or 1)
-            subject = Subject.objects.filter(name=name).first()
-            if subject:
-                EnrolmentSubject.objects.create(
-                    enrolment=enrolment, subject=subject, hours=hours
-                )
+            enrolment = Enrolment.objects.create(
+                learner=request.user,
+                package_type=package_type,
+                monthly_fee=monthly_fee,
+                registration_fee=reg_fee,
+                late_fee=late_fee,
+                status=Enrolment.STATUS_PENDING,  # proof is attached, so it's pending review
+            )
 
-        ProofOfPayment.objects.create(
-            enrolment=enrolment,
-            file=proof_file,
-            original_name=getattr(proof_file, "name", ""),
-        )
+            for item in subjects:
+                name = item.get("name")
+                hours = int(item.get("hours", 1) or 1)
+                subject = Subject.objects.filter(name=name).first()
+                if subject:
+                    EnrolmentSubject.objects.create(
+                        enrolment=enrolment, subject=subject, hours=hours
+                    )
+
+            ProofOfPayment.objects.create(
+                enrolment=enrolment,
+                file=proof_file,
+                original_name=getattr(proof_file, "name", ""),
+            )
+
+            # this submission starts a new cycle: today becomes the cycle day,
+            # the learner is active again, and any owed late fee is now paid
+            now = timezone.now()
+            if billing.status != LearnerBilling.STATUS_ACTIVE:
+                billing.status_changed_at = now
+            billing.status = LearnerBilling.STATUS_ACTIVE
+            billing.cycle_day = timezone.localdate().day
+            billing.late_fee_owed = 0
+            billing.last_paid_at = now
+            billing.save()
 
         return Response(
             EnrolmentSerializer(enrolment).data, status=status.HTTP_201_CREATED
@@ -120,7 +143,7 @@ class AdminStudentsView(APIView):
         User = get_user_model()
         learners = (
             User.objects.filter(is_staff=False, is_superuser=False)
-            .select_related("learner_profile")
+            .select_related("learner_profile", "billing")
             .prefetch_related("enrolments__subject_lines__subject", "enrolments__proof")
         )
         grade = request.query_params.get("grade")
@@ -230,3 +253,65 @@ class AdminStudentDeleteView(APIView):
             return Response({"detail": "Cannot deregister an admin account."}, status=400)
         learner.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# ===================== BILLING: opt-out + daily run =====================
+
+class OptOutView(APIView):
+    """
+    GET/POST /api/billing/optout/<token> - public (from the email link, no login).
+    GET shows who the link is for; POST {"confirm": true} opts them out.
+    """
+
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def _get_billing(self, token):
+        return (
+            LearnerBilling.objects.select_related("learner__learner_profile")
+            .filter(optout_token=token)
+            .first()
+        )
+
+    def _payload(self, b):
+        profile = getattr(b.learner, "learner_profile", None)
+        return {
+            "learner_name": profile.name if profile else "",
+            "status": b.status,
+            "late_fee_owed": b.late_fee_owed,
+        }
+
+    def get(self, request, token):
+        b = self._get_billing(token)
+        if b is None:
+            return Response({"detail": "This link is invalid or has expired."}, status=404)
+        return Response(self._payload(b))
+
+    def post(self, request, token):
+        b = self._get_billing(token)
+        if b is None:
+            return Response({"detail": "This link is invalid or has expired."}, status=404)
+        if request.data.get("confirm") is not True:
+            return Response({"detail": "Please tick the box to confirm."}, status=400)
+        if b.status != LearnerBilling.STATUS_OPTED_OUT:
+            b.status = LearnerBilling.STATUS_OPTED_OUT
+            b.status_changed_at = timezone.now()
+            b.save(update_fields=["status", "status_changed_at", "updated_at"])
+        return Response(self._payload(b))
+
+
+class RunBillingView(APIView):
+    """
+    POST /api/billing/run  (header X-Cron-Secret: <CRON_SECRET>)
+    Called daily by cron-job.org. Add ?dry_run=1 to preview without changes.
+    """
+
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def post(self, request):
+        provided = request.headers.get("X-Cron-Secret", "")
+        if not settings.CRON_SECRET or not hmac.compare_digest(provided, settings.CRON_SECRET):
+            return Response({"detail": "Forbidden."}, status=403)
+        dry_run = request.query_params.get("dry_run") == "1"
+        return Response(process_billing(dry_run=dry_run))
